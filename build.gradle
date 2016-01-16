@@ -1,0 +1,39 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'org.javafxports:jfxmobile-plugin:1.0.6'
+    }
+}
+
+apply plugin: 'org.javafxports.jfxmobile'
+
+repositories {
+    jcenter()
+}
+
+mainClassName = 'com.robogroves.ledapp.LedApp'
+
+jfxmobile {
+    android {
+        manifest = 'src/android/AndroidManifest.xml'
+    }
+    ios {
+        infoPList = file('src/ios/Default-Info.plist')
+    }
+    embedded {
+        remotePlatforms {
+            raspberry {
+                host = '192.168.1.101'
+                username = 'pi'
+                password = 'raspberry'
+                workingDir = '/home/pi/sample'
+                jreLocation = '/opt/java'
+                execPrefix = 'sudo'
+            }
+        }
+    }
+
+}
+
